@@ -23,19 +23,19 @@ if len(sys.argv) > 2:
                 for old_file in list_of_files:
                     new_name = folder + str(uuid.uuid4()) + EXTENSION
                     os.rename(old_file, new_name)
-                    print('--->>> File {} was renamed to {}'.format(old_file, new_name))
+                    print("--->>> File {} was renamed to {}".format(old_file, new_name))
             # ByCode
             else:
-                new_name = ''
+                new_name = ""
                 for old_file in list_of_files:
                     for symbol in os.path.splitext(os.path.basename(old_file))[0]:
                         new_name += str(ord(symbol))
                     new_name += EXTENSION
                     os.rename(old_file, new_name)
-                    print('--->>> File {} was renamed to {}'.format(old_file, new_name))
+                    print("--->>> File {} was renamed to {}".format(old_file, new_name))
         else:
-            print('No file found.')
+            print("No file found.")
     else:
-        print('Error in passed parameters.')
+        print("Error in passed parameters.")
 else:
-    print('Pass all the necessary parameters.')
+    print("Pass all the necessary parameters.")
