@@ -15,6 +15,7 @@ def get_args():
     """
     Returns the arguments passed to the application
     """
+
     parser: Object = argparse.ArgumentParser(description = DESCRIPTION)
     parser.add_argument('folder', 
                         metavar = "FOLDER", 
@@ -35,6 +36,7 @@ def main():
     """
     Aplication entry point
     """
+
     args: List[str] = get_args()
     # Folder name must end with a separator
     if args.folder[-1] is not os.sep:
@@ -50,8 +52,9 @@ def main():
                     try:
                         os.rename(old_file, new_name)
                         print("--->>> File {} has been renamed to {}".format(old_file, new_name))
-                    except:
+                    except Exception as error:
                         print("Could not rename file {} using {} mode.".format(old_file, args.mode))
+                        print(error)
             # ByCode
             else:
                 new_name: str = ""
@@ -62,8 +65,9 @@ def main():
                     try:
                         os.rename(old_file, new_name)
                         print("--->>> File {} has been renamed to {}".format(old_file, new_name))
-                    except:
+                    except Exception as error:
                         print("Could not rename file {} using {} mode.".format(old_file, args.mode))
+                        print(error)
         else:
             print("Files not found.")
     else:
