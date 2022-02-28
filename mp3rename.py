@@ -2,12 +2,12 @@
 
 
 from __future__ import annotations
-import argparse
+import logging
 import os
 import sys
+import argparse
 import glob
 import uuid
-import logging
 
 
 MODES: Tuple[str, str] = ("byuuid", "bycode")
