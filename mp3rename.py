@@ -1,14 +1,28 @@
+# -*- coding: utf-8 -*-
+
+
 from __future__ import annotations
 import argparse
 import os
+import sys
 import glob
 import uuid
+import logging
 
 
 MODES: Tuple[str, str] = ("byuuid", "bycode")
 EXTENSION: str = ".mp3"
 TEMPLATE: str = "*{}".format(EXTENSION)
 DESCRIPTION: str = "The main task of this script is to rename mp3 files using random names."
+
+logging.basicConfig(
+    level = logging.INFO,
+    format = "%(asctime)s [%(threadName)s] [%(levelname)s] - %(message)s",
+    handlers = [
+        logging.FileHandler("{0}/{1}.log".format(os.getcwd(), "mp3rename")),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 
 
 def get_args():
@@ -51,10 +65,10 @@ def main():
                     new_name: str = args.folder + str(uuid.uuid4()) + EXTENSION
                     try:
                         os.rename(old_file, new_name)
-                        print("--->>> File {} has been renamed to {}".format(old_file, new_name))
+                        logging.info("File {} has been renamed to {}".format(old_file, new_name))
                     except Exception as error:
-                        print("Could not rename file {} using {} mode.".format(old_file, args.mode))
-                        print(error)
+                        logging.error("Could not rename file {} using {} mode.".format(old_file, args.mode))
+                        logging.error(error)
             # ByCode
             else:
                 new_name: str = ""
@@ -64,14 +78,14 @@ def main():
                     new_name += EXTENSION
                     try:
                         os.rename(old_file, new_name)
-                        print("--->>> File {} has been renamed to {}".format(old_file, new_name))
+                        logging.info("File {} has been renamed to {}".format(old_file, new_name))
                     except Exception as error:
-                        print("Could not rename file {} using {} mode.".format(old_file, args.mode))
-                        print(error)
+                        logging.error("Could not rename file {} using {} mode.".format(old_file, args.mode))
+                        logging.error(error)
         else:
-            print("Files not found.")
+            logging.error("Files not found.")
     else:
-        print("Error in passed parameters.")
+        logging.error("Error in passed parameters.")
 
 if __name__ == "__main__":
     main()
